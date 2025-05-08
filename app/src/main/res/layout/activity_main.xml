@@ -7,15 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.MainActivity">
 
-    <!-- NavHostFragment that holds fragments dynamically -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
-
     <!-- Header Container -->
     <LinearLayout
         android:id="@+id/layoutHeader"
@@ -38,6 +29,13 @@
             android:textColor="#4477AA"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_below="@id/layoutHeader"
+        android:layout_above="@id/fabAddWisata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <!-- Daftar Tugas -->
     <androidx.recyclerview.widget.RecyclerView

@@ -2,9 +2,9 @@ package com.example.android_wisata_indonesia_1.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android_wisata_indonesia_1.R
@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val fabAddWisata: FloatingActionButton = findViewById(R.id.fabAddWisata)
 
         wisataList = listOf(
             Wisata(1, "Pantai Dewata", "Cantik", "Bali"),
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         taskAdapter = WisataAdapter(
             onItemClick = { wisata ->
-                // Navigasi ke DetailWisataFragment
                 val fragment = DetailWisataFragment().apply {
                     arguments = Bundle().apply {
                         putInt("id", wisata.id)
@@ -41,9 +41,12 @@ class MainActivity : AppCompatActivity() {
                         putString("location", wisata.location)
                     }
                 }
+
+                recyclerView.visibility = View.GONE
+                fabAddWisata.visibility = View.GONE
+
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment, fragment) // Pastikan ada frame layout dengan id fragmentContainer
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.fragment_container, fragment)
                     .addToBackStack(null)
                     .commit()
             },
@@ -56,10 +59,16 @@ class MainActivity : AppCompatActivity() {
 
         taskAdapter.submitList(wisataList)
 
-        val fabAddWisata: FloatingActionButton = findViewById(R.id.fabAddWisata)
         fabAddWisata.setOnClickListener {
             val intent = Intent(this, AddWisataActivity::class.java)
             addTaskLauncher.launch(intent)
+        }
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                recyclerView.visibility = View.VISIBLE
+                fabAddWisata.visibility = View.VISIBLE
+            }
         }
     }
 

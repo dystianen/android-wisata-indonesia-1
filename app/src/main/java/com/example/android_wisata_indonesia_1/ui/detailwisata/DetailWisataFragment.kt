@@ -4,33 +4,39 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.android_wisata_indonesia_1.databinding.FragmentDetailWisataBinding
+import com.example.android_wisata_indonesia_1.R
 
 class DetailWisataFragment : Fragment() {
-
-    private var _binding: FragmentDetailWisataBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDetailWisataBinding.inflate(inflater, container, false)
-        return binding.root
+    ): View? {
+        return inflater.inflate(R.layout.fragment_detail_wisata, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val args = DetailWisataFragmentArgs.fromBundle(requireArguments())
-        val wisata = args.wisata
+        super.onViewCreated(view, savedInstanceState)
 
-        binding.tvName.text = wisata.name
-        binding.tvDescription.text = wisata.description
-        binding.tvLocation.text = wisata.location
-    }
+        val tvName = view.findViewById<TextView>(R.id.tvName)
+        val tvLocation = view.findViewById<TextView>(R.id.tvLocation)
+        val tvDescription = view.findViewById<TextView>(R.id.tvDescription)
+        val btnBack = view.findViewById<Button>(R.id.btnBack)
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        // Ambil data dari argument
+        arguments?.let {
+            tvName.text = it.getString("name")
+            tvLocation.text = it.getString("location")
+            tvDescription.text = it.getString("description")
+        }
+
+        // Tombol kembali ke MainActivity (pop fragment)
+        btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 }
+
