@@ -24,9 +24,11 @@ class MainActivity : AppCompatActivity() {
         val fabAddWisata: FloatingActionButton = findViewById(R.id.fabAddWisata)
 
         wisataList = listOf(
-            Wisata(1, "Pantai Dewata", "Cantik", "Bali"),
-            Wisata(2, "Taman Monas", "Cantik", "Jakarta"),
-            Wisata(3, "Pangalengan", "Cantik", "Bandung"),
+            Wisata(1, "Bukit Pelangi", "Panorama indah saat matahari terbit", "Yogyakarta"),
+            Wisata(2, "Danau Kristal", "Air jernih dan cocok untuk piknik keluarga", "Sumatera Utara"),
+            Wisata(3, "Goa Seribu Cahaya", "Goa dengan pantulan cahaya alami", "Pacitan"),
+            Wisata(4, "Hutan Cemara Abadi", "Trekking santai di antara pepohonan tinggi", "Malang"),
+            Wisata(5, "Pantai Pasir Merah", "Pasir unik berwarna kemerahan", "NTT")
         )
 
         recyclerView = findViewById(R.id.recyclerViewTasks)

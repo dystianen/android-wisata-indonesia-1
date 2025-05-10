@@ -7,6 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class Wisata(
     val id: Int,
     val name: String,
+    val description: String,
     val location: String,
-    val description: String
 ) : Parcelable
